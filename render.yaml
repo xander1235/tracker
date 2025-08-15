@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: tracker
+    env: docker
+    plan: free
+    autoDeploy: true
+    branch: main
+    dockerfilePath: ./Dockerfile
+    # Persistent JSON storage
+    disk:
+      name: tracker-data
+      mountPath: /app/server/data
+      sizeGB: 1
+    healthCheckPath: /health
