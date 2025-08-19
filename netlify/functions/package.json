@@ -1,0 +1,13 @@
+{
+  "name": "tracker-api-function",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "serverless-http": "^3.2.0",
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
+    "firebase-admin": "^12.5.0",
+    "nanoid": "^5.0.7"
+  }
+}

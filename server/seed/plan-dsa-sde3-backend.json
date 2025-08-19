@@ -1,0 +1,1105 @@
+{
+  "plans": [
+    {
+      "id": "dsa-sde3-backend-prep",
+      "planId": "comprehensive-sde3-backend-plan",
+      "title": "SDE3 Backend Role Preparation Plan",
+      "startDate": null,
+      "schedule": [
+        {
+          "week": 1,
+          "topic": "Dynamic Programming (DP) Fundamentals",
+          "days": [
+            {
+              "day": "1-2",
+              "patterns": [
+                {
+                  "name": "Fibonacci-style problems",
+                  "problems": [
+                    "Fibonacci Number",
+                    "Climbing Stairs",
+                    "House Robber",
+                    "House Robber II",
+                    "Min Cost Climbing Stairs",
+                    "Jump Game",
+                    "Jump Game II",
+                    "Decode Ways",
+                    "Unique Paths",
+                    "Unique Paths II",
+                    "Minimum Path Sum",
+                    "Maximum Sum Circular Subarray",
+                    "Unique Binary Search Trees",
+                    "Ugly Number II",
+                    "Paint House"
+                  ]
+                },
+                {
+                  "name": "Kadane's Algorithm",
+                  "problems": [
+                    "Maximum Subarray",
+                    "Maximum Product Subarray",
+                    "Best Time to Buy/Sell Stock",
+                    "Best Time to Buy/Sell Stock II",
+                    "Best Time to Buy/Sell Stock with Cooldown",
+                    "Best Time to Buy/Sell Stock with Transaction Fee",
+                    "Maximum Sum of Two Non-Overlapping Subarrays",
+                    "Maximum Sum of 3 Non-Overlapping Subarrays",
+                    "Maximum Subarray Sum after K Concatenation",
+                    "Maximum Absolute Sum of Any Subarray",
+                    "Maximum Sum of Subarray Minimums",
+                    "Maximum Sum of Subarray Close to K",
+                    "Longest Turbulent Subarray",
+                    "Maximum Length of Subarray With Positive Product",
+                    "Maximum Subarray Sum with One Deletion"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "3-4",
+              "patterns": [
+                {
+                  "name": "0/1 Knapsack Pattern",
+                  "problems": [
+                    "0/1 Knapsack Problem",
+                    "Subset Sum Problem",
+                    "Equal Sum Partition",
+                    "Count of Subset Sum",
+                    "Minimum Subset Sum Difference",
+                    "Target Sum",
+                    "Number of Subsets with given Difference",
+                    "Count the number of subset with a given difference",
+                    "Last Stone Weight II",
+                    "Partition Equal Subset Sum",
+                    "Ones and Zeroes",
+                    "Partition Array Into Two Arrays to Minimize Sum Difference",
+                    "Profitable Schemes",
+                    "Tallest Billboard",
+                    "Find the Minimum Number of Coins to get a Specific Value"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "5-7",
+              "patterns": [
+                {
+                  "name": "Unbounded Knapsack",
+                  "problems": [
+                    "Rod Cutting",
+                    "Coin Change (Min # of coins)",
+                    "Coin Change II (# of ways)",
+                    "Maximum Ribbon Cut",
+                    "Minimum Cost For Tickets",
+                    "Integer Break",
+                    "Perfect Squares",
+                    "Minimum Cost to Cut a Stick",
+                    "Minimum Number of Refueling Stops",
+                    "Soup Servings",
+                    "Dice Roll Simulation",
+                    "Number of Dice Rolls With Target Sum",
+                    "Combination Sum IV",
+                    "Minimum Cost to Merge Stones",
+                    "Minimum Cost Tree From Leaf Values"
+                  ]
+                },
+                {
+                  "name": "Longest Increasing Subsequence (LIS)",
+                  "problems": [
+                    "Longest Increasing Subsequence",
+                    "Number of Longest Increasing Subsequence",
+                    "Increasing Triplet Subsequence",
+                    "Russian Doll Envelopes",
+                    "Maximum Height by Stacking Cuboids",
+                    "Longest String Chain",
+                    "Largest Divisible Subset",
+                    "Longest Arithmetic Subsequence",
+                    "Longest Arithmetic Subsequence of Given Difference",
+                    "Delete and Earn",
+                    "Maximum Length of Pair Chain",
+                    "Wiggle Subsequence",
+                    "Longest Bitonic Subsequence",
+                    "Maximum Sum Increasing Subsequence",
+                    "Minimum Number of Removals to Make Mountain Array"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "week": 2,
+          "topic": "DP Intermediate",
+          "days": [
+            {
+              "day": "8-9",
+              "patterns": [
+                {
+                  "name": "Longest Common Subsequence (LCS)",
+                  "problems": [
+                    "Longest Common Subsequence",
+                    "Longest Common Substring",
+                    "Shortest Common Supersequence",
+                    "Edit Distance",
+                    "Minimum Deletions to Make String Palindrome",
+                    "Distinct Subsequences",
+                    "Interleaving String",
+                    "Maximum Length of Repeated Subarray",
+                    "Uncrossed Lines",
+                    "Delete Operation for Two Strings",
+                    "Minimum ASCII Delete Sum for Two Strings",
+                    "Longest Palindromic Subsequence",
+                    "Longest Repeating Subsequence",
+                    "Is Subsequence",
+                    "Subsequence Matching"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "10-11",
+              "patterns": [
+                {
+                  "name": "Matrix Chain Multiplication",
+                  "problems": [
+                    "Matrix Chain Multiplication",
+                    "Palindrome Partitioning",
+                    "Palindrome Partitioning II",
+                    "Palindrome Partitioning III",
+                    "Evaluate Expression to True/Boolean Parenthesization",
+                    "Scrambled String",
+                    "Burst Balloons",
+                    "Minimum Cost to Merge Stones",
+                    "Remove Boxes",
+                    "Strange Printer",
+                    "Minimum Score Triangulation of Polygon",
+                    "Optimal Binary Search Tree",
+                    "Arithmetic Slices II - Subsequence",
+                    "Minimum Cost to Cut a Stick",
+                    "Partition Array for Maximum Sum"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "12-14",
+              "patterns": [
+                {
+                  "name": "Grid Traversal",
+                  "problems": [
+                    "Unique Paths",
+                    "Unique Paths II",
+                    "Minimum Path Sum",
+                    "Dungeon Game",
+                    "Cherry Pickup",
+                    "Cherry Pickup II",
+                    "Maximal Square",
+                    "Maximal Rectangle",
+                    "Minimum Falling Path Sum",
+                    "Minimum Falling Path Sum II",
+                    "Triangle",
+                    "Longest Increasing Path in a Matrix",
+                    "Out of Boundary Paths",
+                    "Knight Probability in Chessboard",
+                    "Distinct Paths III"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "week": 3,
+          "topic": "Advanced DP",
+          "days": [
+            {
+              "day": "15-16",
+              "patterns": [
+                {
+                  "name": "Tree DP",
+                  "problems": [
+                    "Diameter of Binary Tree",
+                    "Maximum Path Sum",
+                    "House Robber III",
+                    "Binary Tree Cameras",
+                    "Binary Tree Maximum Path Sum",
+                    "Distribute Coins in Binary Tree",
+                    "Longest ZigZag Path in a Binary Tree",
+                    "Sum of Distances in Tree",
+                    "Binary Tree Coloring Game",
+                    "Binary Tree Pruning",
+                    "Most Profitable Path in a Tree",
+                    "Minimum Cost Tree From Leaf Values",
+                    "Delete Nodes And Return Forest",
+                    "Maximum Product of Splitted Binary Tree",
+                    "Count Number of Possible Root Nodes"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "17-18",
+              "patterns": [
+                {
+                  "name": "Bitmask DP",
+                  "problems": [
+                    "Traveling Salesman Problem",
+                    "Minimum Cost to Visit All Nodes",
+                    "Partition to K Equal Sum Subsets",
+                    "Non-decreasing Subsequences",
+                    "Maximum Students Taking Exam",
+                    "Number of Ways to Wear Different Hats to Each Other",
+                    "Find the Shortest Superstring",
+                    "Maximum Score Words Formed by Letters",
+                    "Maximum AND Sum of Array",
+                    "Stickers to Spell Word",
+                    "Profitable Schemes",
+                    "Smallest Sufficient Team",
+                    "Number of Music Playlists",
+                    "Special Permutations",
+                    "Minimize the Difference Between Target and Chosen Elements"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "19-21",
+              "activities": [
+                "Solve mixed DP problems from LeetCode contests",
+                "Review challenging problems from previous weeks"
+              ]
+            }
+          ]
+        },
+        {
+          "week": 4,
+          "topic": "Core Recursion",
+          "days": [
+            {
+              "day": "22-23",
+              "patterns": [
+                {
+                  "name": "Simple Recursion",
+                  "problems": [
+                    "Factorial",
+                    "Fibonacci",
+                    "Power Function (x^n)",
+                    "Tower of Hanoi",
+                    "Reverse String",
+                    "Reverse Linked List",
+                    "Swap Nodes in Pairs",
+                    "K-th Symbol in Grammar",
+                    "Pow(x, n)",
+                    "Maximum Depth of Binary Tree",
+                    "Merge Two Sorted Lists",
+                    "Symmetric Tree",
+                    "Binary Tree Paths",
+                    "Different Ways to Add Parentheses",
+                    "Decode String"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "24-25",
+              "patterns": [
+                {
+                  "name": "Divide and Conquer",
+                  "problems": [
+                    "Merge Sort",
+                    "Quick Sort",
+                    "Closest Pair of Points",
+                    "Count Inversions",
+                    "Median of Two Sorted Arrays",
+                    "Sort an Array",
+                    "Kth Largest Element in an Array",
+                    "The Skyline Problem",
+                    "Search a 2D Matrix II",
+                    "Beautiful Array",
+                    "Super Egg Drop",
+                    "Convert Sorted Array to Binary Search Tree",
+                    "Maximum Binary Tree",
+                    "Different Ways to Add Parentheses",
+                    "Expression Add Operators"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "26-28",
+              "patterns": [
+                {
+                  "name": "Combinatorial Backtracking",
+                  "problems": [
+                    "Permutations",
+                    "Permutations II",
+                    "Combinations",
+                    "Combination Sum",
+                    "Combination Sum II",
+                    "Combination Sum III",
+                    "Subsets",
+                    "Subsets II",
+                    "Letter Combinations of a Phone Number",
+                    "Generate Parentheses",
+                    "Restore IP Addresses",
+                    "Path With Maximum Gold",
+                    "Factor Combinations",
+                    "Beautiful Arrangement",
+                    "Non-decreasing Subsequences"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "week": 5,
+          "topic": "Advanced Backtracking",
+          "days": [
+            {
+              "day": "29-30",
+              "patterns": [
+                {
+                  "name": "Constraint Satisfaction",
+                  "problems": [
+                    "N-Queens",
+                    "N-Queens II",
+                    "Sudoku Solver",
+                    "Valid Sudoku",
+                    "Word Search",
+                    "Word Search II",
+                    "Palindrome Partitioning",
+                    "Matchsticks to Square",
+                    "Partition to K Equal Sum Subsets",
+                    "Letter Tile Possibilities",
+                    "Split a String Into the Max Number of Unique Substrings",
+                    "Maximum Length of a Concatenated String with Unique Characters",
+                    "Path With Minimum Effort",
+                    "Word Break II",
+                    "Add and Search Word"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "31-32",
+              "patterns": [
+                {
+                  "name": "Game Theory & Optimization",
+                  "problems": [
+                    "Rat in a Maze",
+                    "Knight's Tour",
+                    "Hamiltonian Path",
+                    "Minimum Number of Work Sessions to Finish the Tasks",
+                    "Predict the Winner",
+                    "Stone Game",
+                    "Stone Game II",
+                    "Stone Game III",
+                    "Nim Game",
+                    "Cat and Mouse",
+                    "Optimal Account Balancing",
+                    "24 Game",
+                    "Find Minimum Time to Finish All Jobs",
+                    "Minimum Cost to Hire K Workers",
+                    "Maximum Score From Removing Stones"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "33-35",
+              "activities": [
+                "Mixed problems combining DP and Recursion",
+                "Optimize recursive solutions using memoization"
+              ]
+            }
+          ]
+        },
+        {
+          "week": 6,
+          "topic": "Tree Fundamentals",
+          "days": [
+            {
+              "day": "36-37",
+              "patterns": [
+                {
+                  "name": "DFS Traversals",
+                  "problems": [
+                    "Binary Tree Inorder Traversal",
+                    "Binary Tree Preorder Traversal",
+                    "Binary Tree Postorder Traversal",
+                    "Binary Tree Level Order Traversal",
+                    "Binary Tree Zigzag Level Order Traversal",
+                    "Average of Levels in Binary Tree",
+                    "N-ary Tree Level Order Traversal",
+                    "Binary Tree Right Side View",
+                    "Find Bottom Left Tree Value",
+                    "Boundary of Binary Tree",
+                    "Vertical Order Traversal of a Binary Tree",
+                    "Morris Traversal Implementation",
+                    "Check Completeness of a Binary Tree",
+                    "Sum of Root To Leaf Binary Numbers",
+                    "Find Largest Value in Each Tree Row"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "38-39",
+              "patterns": [
+                {
+                  "name": "Construction from Traversals",
+                  "problems": [
+                    "Construct Binary Tree from Preorder and Inorder Traversal",
+                    "Construct Binary Tree from Inorder and Postorder Traversal",
+                    "Construct Binary Tree from Preorder and Postorder Traversal",
+                    "Serialize and Deserialize Binary Tree",
+                    "Serialize and Deserialize N-ary Tree",
+                    "Construct Binary Search Tree from Preorder Traversal",
+                    "Maximum Binary Tree",
+                    "Construct String from Binary Tree",
+                    "Construct Binary Tree from String",
+                    "Construct Quad Tree",
+                    "Clone Binary Tree With Random Pointer",
+                    "Convert Sorted List to Binary Search Tree",
+                    "Convert BST to Greater Tree",
+                    "All Possible Full Binary Trees",
+                    "Recover Binary Search Tree"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "40-42",
+              "patterns": [
+                {
+                  "name": "Binary Search Tree",
+                  "problems": [
+                    "Validate Binary Search Tree",
+                    "Kth Smallest Element in a BST",
+                    "Lowest Common Ancestor of a Binary Search Tree",
+                    "Binary Search Tree Iterator",
+                    "Recover Binary Search Tree",
+                    "Delete Node in a BST",
+                    "Trim a Binary Search Tree",
+                    "Convert Sorted Array to Binary Search Tree",
+                    "Unique Binary Search Trees II",
+                    "Insert into a Binary Search Tree",
+                    "Contains Duplicate III",
+                    "Balance a Binary Search Tree",
+                    "Range Sum of BST",
+                    "Minimum Absolute Difference in BST",
+                    "Count Complete Tree Nodes"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "week": 7,
+          "topic": "Advanced Trees",
+          "days": [
+            {
+              "day": "43-44",
+              "patterns": [
+                {
+                  "name": "Balancing & Rotation",
+                  "problems": [
+                    "Balanced Binary Tree",
+                    "Convert Sorted Array to BST",
+                    "AVL Tree Implementation - Insertion",
+                    "AVL Tree Implementation - Deletion",
+                    "AVL Tree Implementation - Rotation",
+                    "Red-Black Tree Concepts - Coloring",
+                    "Red-Black Tree Concepts - Insertion",
+                    "Red-Black Tree Concepts - Deletion",
+                    "Build Balanced BST from Sorted List",
+                    "Self-Balancing Binary Search Tree",
+                    "Maximum Width of Binary Tree",
+                    "Balance a Binary Search Tree",
+                    "Complete Binary Tree Inserter",
+                    "Design a B-Tree",
+                    "Delete Node in a BST with Balancing"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "45-46",
+              "patterns": [
+                {
+                  "name": "Segment Trees & Tries",
+                  "problems": [
+                    "Range Sum Query - Mutable (Segment Tree)",
+                    "Count of Range Sum (Segment Tree)",
+                    "Falling Squares (Segment Tree)",
+                    "Range Module (Segment Tree)",
+                    "My Calendar III (Segment Tree)",
+                    "Word Search II (Trie)",
+                    "Implement Trie (Prefix Tree)",
+                    "Add and Search Word (Trie)",
+                    "Replace Words (Trie)",
+                    "Design Search Autocomplete System (Trie)",
+                    "Word Squares (Trie)",
+                    "Map Sum Pairs (Trie)",
+                    "Design In-Memory File System (Trie)",
+                    "Stream of Characters (Trie)",
+                    "Maximum XOR of Two Numbers in an Array (Trie)"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "47-49",
+              "patterns": [
+                {
+                  "name": "Tree DP & Counting",
+                  "problems": [
+                    "Unique Binary Search Trees",
+                    "All Possible Full Binary Trees",
+                    "Binary Trees With Factors",
+                    "Count Good Nodes in Binary Tree",
+                    "Path Sum III",
+                    "Longest Univalue Path",
+                    "Minimum Cost Tree From Leaf Values",
+                    "Maximum Product of Splitted Binary Tree",
+                    "Minimum Height Trees",
+                    "Subtree of Another Tree",
+                    "Delete Nodes And Return Forest",
+                    "Binary Tree Cameras",
+                    "Distribute Coins in Binary Tree",
+                    "Count Number of Teams",
+                    "Sum of Distances in Tree"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "week": 8,
+          "topic": "Graph Basics",
+          "days": [
+            {
+              "day": "50-51",
+              "patterns": [
+                {
+                  "name": "Adjacency Matrix & List",
+                  "problems": [
+                    "Clone Graph",
+                    "Find the Town Judge",
+                    "Course Schedule",
+                    "Redundant Connection",
+                    "Find the Celebrity",
+                    "Graph Valid Tree",
+                    "Evaluate Division",
+                    "Accounts Merge",
+                    "Minimum Height Trees",
+                    "Reconstruct Itinerary",
+                    "Keys and Rooms",
+                    "Possible Bipartition",
+                    "All Paths from Source to Target",
+                    "Find Eventual Safe States",
+                    "Find Center of Star Graph"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "52-53",
+              "patterns": [
+                {
+                  "name": "BFS & DFS",
+                  "problems": [
+                    "Number of Islands",
+                    "Max Area of Island",
+                    "Word Ladder",
+                    "Pacific Atlantic Water Flow",
+                    "Surrounded Regions",
+                    "Walls and Gates",
+                    "Rotting Oranges",
+                    "Shortest Bridge",
+                    "As Far from Land as Possible",
+                    "Minesweeper",
+                    "Shortest Path in Binary Matrix",
+                    "Word Search",
+                    "Find if Path Exists in Graph",
+                    "Open the Lock",
+                    "Time Needed to Inform All Employees"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "54-56",
+              "patterns": [
+                {
+                  "name": "Dijkstra's & Bellman-Ford",
+                  "problems": [
+                    "Network Delay Time (Dijkstra's)",
+                    "Cheapest Flights Within K Stops (Bellman-Ford)",
+                    "Path with Maximum Gold",
+                    "Path with Minimum Effort",
+                    "Path with Maximum Minimum Value",
+                    "Minimum Cost to Reach Destination in Time",
+                    "Path With Maximum Probability",
+                    "Find the City With the Smallest Number of Neighbors",
+                    "The Maze II",
+                    "Shortest Path in a Grid with Obstacles Elimination",
+                    "The Maze III",
+                    "Minimum Cost to Make at Least One Valid Path in a Grid",
+                    "Reachable Nodes in Subdivided Graph",
+                    "Swim in Rising Water",
+                    "Shortest Path to Get All Keys"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "week": 9,
+          "topic": "Advanced Graph Algorithms",
+          "days": [
+            {
+              "day": "57-58",
+              "patterns": [
+                {
+                  "name": "Kruskal's & Prim's Algorithms",
+                  "problems": [
+                    "Min Cost to Connect All Points (Kruskal's)",
+                    "Optimize Water Distribution (MST)",
+                    "Connecting Cities With Minimum Cost",
+                    "Minimum Cost to Connect Two Groups of Points",
+                    "Find Critical and Pseudo-Critical Edges in MST",
+                    "Minimum Risk Path",
+                    "Minimum Spanning Tree Implementation (Prim's)",
+                    "Network Connections",
+                    "Water Supply Distribution",
+                    "Minimum Cost to Connect Sticks",
+                    "Connect All Points with Minimum Distance",
+                    "Minimum Cost to Reach City With Discounts",
+                    "Roads and Libraries",
+                    "Build Road to Connect Cities",
+                    "Campus Bikes II"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "59-60",
+              "patterns": [
+                {
+                  "name": "Topological Ordering",
+                  "problems": [
+                    "Course Schedule II",
+                    "Alien Dictionary",
+                    "Parallel Courses",
+                    "Minimum Height Trees",
+                    "Sequence Reconstruction",
+                    "Sort Items by Groups Respecting Dependencies",
+                    "Find All Possible Recipes from Given Supplies",
+                    "Longest Increasing Path in a Matrix",
+                    "Largest Color Value in a Directed Graph",
+                    "Maximum Employees to Be Invited to a Meeting",
+                    "Parallel Courses II",
+                    "Course Schedule III",
+                    "Build a Matrix With Conditions",
+                    "Minimum Time to Complete All Tasks",
+                    "Find All People With Secret"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "61-63",
+              "patterns": [
+                {
+                  "name": "Disjoint Set Union",
+                  "problems": [
+                    "Redundant Connection",
+                    "Number of Connected Components",
+                    "Most Stones Removed",
+                    "Accounts Merge",
+                    "Satisfiability of Equality Equations",
+                    "Regions Cut by Slashes",
+                    "Number of Operations to Make Network Connected",
+                    "Largest Component Size by Common Factor",
+                    "Similar String Groups",
+                    "Remove Max Number of Edges to Keep Graph Fully Traversable",
+                    "Find All People With Secret",
+                    "Lexicographically Smallest Equivalent String",
+                    "The Earliest Moment When Everyone Become Friends",
+                    "Checking Existence of Edge Length Limited Paths",
+                    "Number of Good Paths"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "week": 10,
+          "topic": "Complex Graph Problems",
+          "days": [
+            {
+              "day": "64-65",
+              "patterns": [
+                {
+                  "name": "Tarjan's & Kosaraju's Algorithms",
+                  "problems": [
+                    "Critical Connections in a Network",
+                    "Satisfiability of Equality Equations",
+                    "Articulation Points and Bridges",
+                    "Strongly Connected Components Implementation",
+                    "Longest Cycle in a Graph",
+                    "Find the Safest Path in a Grid",
+                    "Number of Restricted Paths From First to Last Node",
+                    "Minimum Number of Days to Disconnect Island",
+                    "Check if Graph is Valid Tree",
+                    "Find Bridges in Graph",
+                    "Reachable Nodes With Restrictions",
+                    "Detect Cycles in 2D Grid",
+                    "Find Eventual Safe States",
+                    "Keys and Rooms",
+                    "Graph Connectivity With Threshold"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "66-67",
+              "patterns": [
+                {
+                  "name": "Ford-Fulkerson & Edmonds-Karp",
+                  "problems": [
+                    "Maximum Bipartite Matching",
+                    "Maximum Flow",
+                    "Minimum Cost Maximum Flow",
+                    "Minimum Number of Work Sessions to Finish Tasks",
+                    "Maximum Vacation Days",
+                    "Maximum Students Taking Exam",
+                    "Divide a Path in N Equal Parts",
+                    "Escape the Spreading Fire",
+                    "Minimum Weight Path",
+                    "Baseball Game Matching",
+                    "Airline Route Optimization",
+                    "Optimal Account Balancing",
+                    "Dinic's Algorithm Implementation",
+                    "Bipartite Graph Maximum Flow",
+                    "Push-Relabel Algorithm Implementation"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "68-70",
+              "activities": [
+                "Solve mixed problems combining multiple graph algorithms",
+                "Review difficult problems from previous weeks"
+              ]
+            }
+          ]
+        },
+        {
+          "week": 11,
+          "topic": "Arrays, Strings, Linked Lists",
+          "days": [
+            {
+              "day": "71-72",
+              "patterns": [
+                {
+                  "name": "Two Pointers, Sliding Window",
+                  "problems": [
+                    "Container With Most Water",
+                    "Trapping Rain Water",
+                    "Minimum Window Substring",
+                    "Two Sum",
+                    "Three Sum",
+                    "Four Sum",
+                    "Sort Colors",
+                    "Remove Duplicates from Sorted Array",
+                    "Move Zeroes",
+                    "Find All Anagrams in a String",
+                    "Longest Substring Without Repeating Characters",
+                    "Fruit Into Baskets",
+                    "Subarrays with K Different Integers",
+                    "Maximum Points You Can Obtain from Cards",
+                    "Longest Mountain in Array"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "73-74",
+              "patterns": [
+                {
+                  "name": "KMP, Rabin-Karp",
+                  "problems": [
+                    "Implement strStr() (KMP)",
+                    "Longest Palindromic Substring",
+                    "Shortest Palindrome",
+                    "Repeated String Match (Rabin-Karp)",
+                    "String Matching in an Array",
+                    "Repeated Substring Pattern",
+                    "Rotate String",
+                    "Group Anagrams",
+                    "Longest Duplicate Substring",
+                    "Find All Anagrams in a String",
+                    "Valid Anagram",
+                    "String Compression",
+                    "Z-Algorithm Implementation",
+                    "Distinct Subsequences",
+                    "Minimum Window Substring"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "75-77",
+              "patterns": [
+                {
+                  "name": "Fast & Slow Pointers",
+                  "problems": [
+                    "Detect Cycle",
+                    "LRU Cache",
+                    "Merge K Sorted Lists",
+                    "Reverse Linked List",
+                    "Reverse Nodes in k-Group",
+                    "Palindrome Linked List",
+                    "Remove Nth Node From End of List",
+                    "Copy List with Random Pointer",
+                    "Merge Two Sorted Lists",
+                    "Add Two Numbers",
+                    "Reorder List",
+                    "Intersection of Two Linked Lists",
+                    "Sort List",
+                    "Convert Sorted List to Binary Search Tree",
+                    "Swap Nodes in Pairs"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "week": 12,
+          "topic": "Stacks, Queues, Heaps, Hashing",
+          "days": [
+            {
+              "day": "78-79",
+              "patterns": [
+                {
+                  "name": "Monotonic Stack/Queue",
+                  "problems": [
+                    "Next Greater Element",
+                    "Largest Rectangle in Histogram",
+                    "Sliding Window Maximum",
+                    "Daily Temperatures",
+                    "Online Stock Span",
+                    "Trapping Rain Water",
+                    "Remove K Digits",
+                    "132 Pattern",
+                    "Sum of Subarray Minimums",
+                    "Maximum Width Ramp",
+                    "Minimum Cost Tree From Leaf Values",
+                    "Remove Duplicate Letters",
+                    "Asteroid Collision",
+                    "Validate Stack Sequences",
+                    "Basic Calculator"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "80-81",
+              "patterns": [
+                {
+                  "name": "Priority Queue",
+                  "problems": [
+                    "Top K Frequent Elements",
+                    "Merge K Sorted Lists",
+                    "Find Median from Data Stream",
+                    "K Closest Points to Origin",
+                    "Kth Largest Element in an Array",
+                    "Task Scheduler",
+                    "Meeting Rooms II",
+                    "Minimum Cost to Hire K Workers",
+                    "Reorganize String",
+                    "Furthest Building You Can Reach",
+                    "Maximum Performance of a Team",
+                    "Course Schedule III",
+                    "Construct Target Array With Multiple Sums",
+                    "Smallest Range Covering Elements from K Lists",
+                    "Find the Kth Smallest Sum of a Matrix With Sorted Rows"
+                  ]
+                }
+              ]
+            },
+            {
+              "day": "82-84",
+              "patterns": [
+                {
+                  "name": "Hash Map Design",
+                  "problems": [
+                    "Design HashMap",
+                    "LFU Cache",
+                    "All O(1) Data Structure",
+                    "Design Twitter",
+                    "Time Based Key-Value Store",
+                    "Insert Delete GetRandom O(1)",
+                    "Insert Delete GetRandom O(1) - Duplicates allowed",
+                    "Design Underground System",
+                    "Implement Trie (Prefix Tree)",
+                    "Design Add and Search Words Data Structure",
+                    "Design Search Autocomplete System",
+                    "Design Skiplist",
+                    "Design Browser History",
+                    "Snapshot Array",
+                    "Random Pick with Blacklist"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "week": 13,
+          "topic": "SOLID & Design Patterns",
+          "days": [
+            {
+              "day": "85-87",
+              "topic": "SOLID Principles",
+              "activities": [
+                "Study Single Responsibility Principle",
+                "Study Open/Closed Principle",
+                "Study Liskov Substitution Principle",
+                "Study Interface Segregation Principle",
+                "Study Dependency Inversion Principle",
+                "Code refactoring exercises applying each principle"
+              ]
+            },
+            {
+              "day": "88-91",
+              "topic": "Design Patterns",
+              "activities": [
+                "Study Creational Patterns: Singleton, Factory, Builder, Prototype, Abstract Factory",
+                "Study Structural Patterns: Adapter, Bridge, Composite, Decorator, Facade, Proxy",
+                "Study Behavioral Patterns: Observer, Strategy, Command, Template, Iterator, State",
+                "Implement 1-2 patterns from each category"
+              ]
+            }
+          ]
+        },
+        {
+          "week": 14,
+          "topic": "Low-Level Design (LLD)",
+          "days": [
+            {
+              "day": "92-94",
+              "topic": "OOP Design",
+              "activities": [
+                "Class hierarchy design",
+                "Practice: Design a parking lot, elevator system, file system",
+                "UML diagrams and implementation"
+              ]
+            },
+            {
+              "day": "95-98",
+              "topic": "Design Exercises",
+              "activities": [
+                "Design a Library Management System",
+                "Design a Hotel Booking System",
+                "Design an Online Food Delivery System",
+                "Design a Ride-Sharing Service"
+              ]
+            }
+          ]
+        },
+        {
+          "week": 15,
+          "topic": "High-Level Design (HLD)",
+          "days": [
+            {
+              "day": "99-101",
+              "topic": "System Components",
+              "activities": [
+                "Study Load Balancers, API Gateways, Service Discovery",
+                "Study Caching Strategies (Client-side, CDN, Application, Database)",
+                "Study Database Sharding & Replication"
+              ]
+            },
+            {
+              "day": "102-105",
+              "topic": "Architecture Patterns",
+              "activities": [
+                "Study Microservices vs Monolithic architectures",
+                "Study Event-Driven Architecture",
+                "Study CQRS and Event Sourcing",
+                "Study Serverless Architecture"
+              ]
+            }
+          ]
+        },
+        {
+          "week": 16,
+          "topic": "System Design Practice",
+          "days": [
+            {
+              "day": "106-108",
+              "topic": "Data-Intensive Systems",
+              "activities": [
+                "Design: URL Shortener",
+                "Design: Twitter Timeline",
+                "Design: Netflix Recommendation System",
+                "Focus on data flow, storage choices, and scalability"
+              ]
+            },
+            {
+              "day": "109-112",
+              "topic": "Complex Systems",
+              "activities": [
+                "Design: Uber",
+                "Design: Instagram",
+                "Design: Google Drive",
+                "Design: Payment System",
+                "Focus on end-to-end architecture with all components"
+              ]
+            }
+          ]
+        },
+        {
+          "week": 17,
+          "topic": "Final Preparation",
+          "days": [
+            {
+              "day": "113-114",
+              "topic": "Mock Interviews (DSA)",
+              "activities": [
+                "Practice DSA problems with time constraints",
+                "Review most challenging problems"
+              ]
+            },
+            {
+              "day": "115-116",
+              "topic": "Mock Interviews (Design)",
+              "activities": [
+                "Practice LLD and HLD with time constraints",
+                "Focus on communication and trade-off discussions"
+              ]
+            },
+            {
+              "day": "117-119",
+              "topic": "Review & Gap Filling",
+              "activities": [
+                "Identify and address knowledge gaps",
+                "Final review of critical concepts"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "title": "SDE3 Backend Role Preparation Plan",
+  "schedule": [
+    {
+      "week": 1,
+      "topic": "Backend Foundations & Systems",
+      "days": [
+        {
+          "day": "1",
+          "activities": [
+            "Set goals, scope, and timeline for the SDE3 preparation",
+            "Refresh CS fundamentals: complexity, data structures quick recap",
+            "Environment setup: editor, linters, formatter"
+          ]
+        },
+        {
+          "day": "2-3",
+          "patterns": [
+            {
+              "name": "Caching",
+              "problems": [
+                "Design LRU Cache",
+                "Implement write-through vs write-back cache semantics"
+              ]
+            }
+          ],
+          "activities": [
+            "Read: Cache invalidation strategies (TTL, LRU, LFU)"
+          ]
+        },
+        {
+          "day": "4",
+          "patterns": [
+            {
+              "name": "Concurrency & Synchronization",
+              "problems": [
+                "Bounded queue with producers/consumers",
+                "Thread-safe rate limiter"
+              ]
+            }
+          ]
+        },
+        {
+          "day": "5",
+          "activities": [
+            "System design drill: URL shortener with high availability",
+            "Focus on data model, sharding, cache, consistency"
+          ]
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "topic": "Datastores & Reliability",
+      "days": [
+        {
+          "day": "1-2",
+          "patterns": [
+            {
+              "name": "Transactions & Consistency",
+              "problems": [
+                "Design distributed transaction coordinator",
+                "Implement idempotency keys for REST endpoints"
+              ]
+            }
+          ]
+        },
+        {
+          "day": "3",
+          "activities": [
+            "Deep dive: Postgres indexing and query planning",
+            "Practice: Write and optimize complex SQL queries"
+          ]
+        },
+        {
+          "day": "4-5",
+          "patterns": [
+            {
+              "name": "Messaging & Streaming",
+              "problems": [
+                "Exactly-once processing with Kafka semantics (design)",
+                "Outbox pattern implementation"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "topic": "APIs, Observability, and Ops",
+      "days": [
+        {
+          "day": "1",
+          "activities": [
+            "API design: versioning, pagination, filtering, errors",
+            "Implement: OpenAPI doc and request validation"
+          ]
+        },
+        {
+          "day": "2-3",
+          "patterns": [
+            {
+              "name": "Resilience",
+              "problems": [
+                "Circuit breaker with half-open state",
+                "Bulkhead and timeout strategy design"
+              ]
+            }
+          ]
+        },
+        {
+          "day": "4-5",
+          "activities": [
+            "Observability: structured logs, metrics, traces",
+            "Set SLOs and error budgets; alerting basics"
+          ]
+        }
+      ]
+    }
+  ]
+}

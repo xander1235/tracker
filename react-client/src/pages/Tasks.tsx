@@ -69,29 +69,19 @@ export default function TasksPage() {
   }, [plan])
 
   const periodLabel = useMemo(() => {
-    const now = new Date()
-    const fmt = new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' })
     switch (mode) {
       case 'day':
-        return fmt.format(now)
-      case 'week': {
-        const start = startOfWeek(now)
-        const end = endOfWeek(now)
-        return `${fmt.format(start)} - ${fmt.format(end)}`
-      }
-      case 'month': {
-        return new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' }).format(now)
-      }
-      case 'quarter': {
-        const q = Math.floor(now.getMonth() / 3) + 1
-        return `Q${q} ${now.getFullYear()}`
-      }
-      case 'half': {
-        const h = now.getMonth() < 6 ? 1 : 2
-        return `H${h} ${now.getFullYear()}`
-      }
+        return 'Day-wise'
+      case 'week':
+        return 'Grouped by Week'
+      case 'month':
+        return 'Grouped by Month'
+      case 'quarter':
+        return 'Grouped by Quarter'
+      case 'half':
+        return 'Grouped by Half-year'
       case 'year':
-        return String(now.getFullYear())
+        return 'Grouped by Year'
     }
   }, [mode])
 
@@ -253,7 +243,7 @@ export default function TasksPage() {
   )
 }
 
-type SectionTask = { key: string; title: string; completed: boolean; notes?: string; subtasks?: Subtask[] }
+type SectionTask = { key: string; title: string; completed: boolean; notes?: string; subtasks?: Subtask[]; isPatternParent?: boolean }
 type Section = { id: string; title: string; dayLabel: string; dateLabel: string; dateStart: Date | null; dateEnd: Date | null; tags: string[]; tasks: SectionTask[]; stats: { completed: number; total: number }; week: number; dayRaw: string }
 
 // Count completed/total with rule: only leaf nodes count.
@@ -308,11 +298,11 @@ function SectionsList(props: {
   onRenameTask: (key: string, title: string) => void
   onRemoveTask: (key: string) => void
 }) {
-  const { categoryId, plan, expandedNotes, setExpandedNotes } = props
-  const sections = useMemo(() => (plan ? buildSections(categoryId, plan) : []), [categoryId, plan])
+  const { plan, expandedNotes, setExpandedNotes } = props
   const [addSubFor, setAddSubFor] = useState<{ key: string; parentId?: string } | null>(null)
   const [highlightKey, setHighlightKey] = useState<string | null>(null)
   const [openTaskMenu, setOpenTaskMenu] = useState<string | null>(null)
+  const [collapsedTasks, setCollapsedTasks] = useState<Record<string, boolean>>({})
 
   // Close task overflow menu on outside click or Escape
   useEffect(() => {
@@ -334,48 +324,20 @@ function SectionsList(props: {
     }
   }, [openTaskMenu])
 
+  function onTileClick(e: React.MouseEvent, key: string) {
+    const target = e.target as HTMLElement | null
+    if (!target) return
+    // Ignore clicks originating from interactive controls or menus
+    if (target.closest('input, button, textarea, select, a, .actions-trigger, .dropdown-menu')) return
+    setCollapsedTasks(prev => ({ ...prev, [key]: !prev[key] }))
+  }
+
   // Filter sections by current period
   const visible = useMemo(() => {
-    if (sections.length === 0) return sections
-    // If plan has no start date, show all sections
-    const noDates = sections.every(s => !s.dateStart || !s.dateEnd)
-    if (noDates) return sections
-
-    const now = new Date()
-    let start: Date
-    let end: Date
-    switch (props.mode) {
-      case 'day':
-        start = startOfDay(now)
-        end = endOfDay(now)
-        break
-      case 'week':
-        start = startOfWeek(now)
-        end = endOfWeek(now)
-        break
-      case 'month':
-        start = startOfMonth(now)
-        end = endOfMonth(now)
-        break
-      case 'quarter':
-        start = startOfQuarter(now)
-        end = endOfQuarter(now)
-        break
-      case 'half':
-        start = startOfHalf(now)
-        end = endOfHalf(now)
-        break
-      case 'year':
-        start = startOfYear(now)
-        end = endOfYear(now)
-        break
-    }
-    const inPeriod = sections.filter(s => {
-      if (!s.dateStart || !s.dateEnd) return true
-      return rangesOverlap(s.dateStart, s.dateEnd, start, end)
-    })
-    return inPeriod
-  }, [sections, props.mode])
+    const plan = props.plan
+    if (!plan) return []
+    return buildSections(props.categoryId, plan)
+  }, [props.categoryId, props.plan])
 
   // Apply tag filter and merge sections for non-day views
   const prepared = useMemo(() => {
@@ -383,7 +345,18 @@ function SectionsList(props: {
       const filteredTasks = sec.tasks.filter(t => {
         if (!props.selectedTag) return true
         const metaTags = plan?.tasks?.[t.key]?.tags ?? []
-        return metaTags.includes(props.selectedTag) || sec.tags.includes(props.selectedTag)
+        if (metaTags.includes(props.selectedTag) || sec.tags.includes(props.selectedTag)) return true
+        if (t.isPatternParent) {
+          // Check tags on problem tasks represented as subtasks
+          for (const st of (t.subtasks ?? [])) {
+            const parsed = parseEncodedSubtaskId(st.id)
+            if (parsed) {
+              const tags = plan?.tasks?.[parsed.problemKey]?.tags ?? []
+              if (tags.includes(props.selectedTag)) return true
+            }
+          }
+        }
+        return false
       })
       // Search filter
       const q = props.searchQuery?.trim().toLowerCase() ?? ''
@@ -400,26 +373,193 @@ function SectionsList(props: {
       return { ...sec, tasks: searched, stats }
     })
 
-    if (props.mode !== 'day' && secs.length > 0) {
-      const allTasks = secs.flatMap(s => s.tasks)
-      const allTags = Array.from(new Set(secs.flatMap(s => s.tags)))
-      const stats = computeStatsWithSubtasks(allTasks)
-      const start = new Date(Math.min(...secs.map(s => s.dateStart ? s.dateStart.getTime() : Number.POSITIVE_INFINITY)))
-      const end = new Date(Math.max(...secs.map(s => s.dateEnd ? s.dateEnd.getTime() : Number.NEGATIVE_INFINITY)))
-      const merged: Section = {
-        id: 'merged',
-        title: `This ${props.mode}`,
-        dayLabel: 'All tasks',
-        dateLabel: props.periodLabel,
-        dateStart: Number.isFinite(start.getTime()) ? start : null,
-        dateEnd: Number.isFinite(end.getTime()) ? end : null,
-        tags: allTags,
-        tasks: allTasks,
-        stats,
-        week: 0,
-        dayRaw: ''
+    if (secs.length > 0) {
+      if (props.mode === 'week') {
+        // Group by plan week; show previous, current, next weeks as separate sections
+        const byWeek = new Map<number, Section[]>()
+        for (const s of secs) {
+          if (!byWeek.has(s.week)) byWeek.set(s.week, [])
+          byWeek.get(s.week)!.push(s)
+        }
+        const grouped: Section[] = []
+        for (const [wk, list] of Array.from(byWeek.entries()).sort((a, b) => a[0] - b[0])) {
+          const tasks = list.flatMap(x => x.tasks)
+          const tags = Array.from(new Set(list.flatMap(x => x.tags)))
+          const stats = computeStatsWithSubtasks(tasks)
+          const ds = list.map(x => x.dateStart?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const de = list.map(x => x.dateEnd?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const start = ds.length > 0 ? new Date(Math.min(...ds)) : null
+          const end = de.length > 0 ? new Date(Math.max(...de)) : null
+          // Choose a sample day for header actions (first day in the week)
+          const first = list
+            .slice()
+            .sort((a, b) => (a.dateStart?.getTime() ?? 0) - (b.dateStart?.getTime() ?? 0))[0]
+          grouped.push({
+            id: `week-${wk}`,
+            title: list[0]?.title ?? `Week ${wk}`,
+            dayLabel: 'All days',
+            dateLabel: props.periodLabel,
+            dateStart: start,
+            dateEnd: end,
+            tags,
+            tasks,
+            stats,
+            week: first?.week ?? wk,
+            dayRaw: first?.dayRaw ?? '1'
+          })
+        }
+        secs = grouped
+      } else if (props.mode === 'month') {
+        // Group by month-year across the whole plan
+        const byMonth = new Map<string, Section[]>()
+        for (const s of secs) {
+          const d = s.dateStart ?? s.dateEnd
+          const key = d ? `${d.getFullYear()}-${d.getMonth()}` : 'no-date'
+          if (!byMonth.has(key)) byMonth.set(key, [])
+          byMonth.get(key)!.push(s)
+        }
+        const grouped: Section[] = []
+        for (const [key, list] of Array.from(byMonth.entries()).sort((a, b) => a[0].localeCompare(b[0])) ) {
+          const tasks = list.flatMap(x => x.tasks)
+          const tags = Array.from(new Set(list.flatMap(x => x.tags)))
+          const stats = computeStatsWithSubtasks(tasks)
+          const ds = list.map(x => x.dateStart?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const de = list.map(x => x.dateEnd?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const start = ds.length > 0 ? new Date(Math.min(...ds)) : null
+          const end = de.length > 0 ? new Date(Math.max(...de)) : null
+          const first = list
+            .slice()
+            .sort((a, b) => (a.dateStart?.getTime() ?? 0) - (b.dateStart?.getTime() ?? 0))[0]
+          const dateLabel = props.periodLabel
+          // Use Month Year as the title for clarity; dateLabel stays as the view label
+          const df = new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' })
+          const title = start ? df.format(start) : 'No date'
+          grouped.push({
+            id: `month-${key}`,
+            title,
+            dayLabel: 'All days',
+            dateLabel,
+            dateStart: start,
+            dateEnd: end,
+            tags,
+            tasks,
+            stats,
+            week: first?.week ?? 0,
+            dayRaw: first?.dayRaw ?? '1'
+          })
+        }
+        secs = grouped
+      } else if (props.mode === 'quarter') {
+        // Group by quarter-year
+        const byQ = new Map<string, Section[]>()
+        for (const s of secs) {
+          const d = s.dateStart ?? s.dateEnd
+          const q = d ? Math.floor(d.getMonth() / 3) + 1 : 0
+          const key = d ? `${d.getFullYear()}-Q${q}` : 'no-date'
+          if (!byQ.has(key)) byQ.set(key, [])
+          byQ.get(key)!.push(s)
+        }
+        const grouped: Section[] = []
+        for (const [key, list] of Array.from(byQ.entries()).sort((a, b) => a[0].localeCompare(b[0])) ) {
+          const tasks = list.flatMap(x => x.tasks)
+          const tags = Array.from(new Set(list.flatMap(x => x.tags)))
+          const stats = computeStatsWithSubtasks(tasks)
+          const ds = list.map(x => x.dateStart?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const de = list.map(x => x.dateEnd?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const start = ds.length > 0 ? new Date(Math.min(...ds)) : null
+          const end = de.length > 0 ? new Date(Math.max(...de)) : null
+          const first = list
+            .slice()
+            .sort((a, b) => (a.dateStart?.getTime() ?? 0) - (b.dateStart?.getTime() ?? 0))[0]
+          grouped.push({
+            id: `quarter-${key}`,
+            title: key === 'no-date' ? 'No date' : key,
+            dayLabel: 'All days',
+            dateLabel: props.periodLabel,
+            dateStart: start,
+            dateEnd: end,
+            tags,
+            tasks,
+            stats,
+            week: first?.week ?? 0,
+            dayRaw: first?.dayRaw ?? '1'
+          })
+        }
+        secs = grouped
+      } else if (props.mode === 'half') {
+        // Group by half-year
+        const byH = new Map<string, Section[]>()
+        for (const s of secs) {
+          const d = s.dateStart ?? s.dateEnd
+          const h = d ? (d.getMonth() < 6 ? 'H1' : 'H2') : 'H?'
+          const key = d ? `${d.getFullYear()}-${h}` : 'no-date'
+          if (!byH.has(key)) byH.set(key, [])
+          byH.get(key)!.push(s)
+        }
+        const grouped: Section[] = []
+        for (const [key, list] of Array.from(byH.entries()).sort((a, b) => a[0].localeCompare(b[0])) ) {
+          const tasks = list.flatMap(x => x.tasks)
+          const tags = Array.from(new Set(list.flatMap(x => x.tags)))
+          const stats = computeStatsWithSubtasks(tasks)
+          const ds = list.map(x => x.dateStart?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const de = list.map(x => x.dateEnd?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const start = ds.length > 0 ? new Date(Math.min(...ds)) : null
+          const end = de.length > 0 ? new Date(Math.max(...de)) : null
+          const first = list
+            .slice()
+            .sort((a, b) => (a.dateStart?.getTime() ?? 0) - (b.dateStart?.getTime() ?? 0))[0]
+          grouped.push({
+            id: `half-${key}`,
+            title: key === 'no-date' ? 'No date' : key.replace('-', ' '),
+            dayLabel: 'All days',
+            dateLabel: props.periodLabel,
+            dateStart: start,
+            dateEnd: end,
+            tags,
+            tasks,
+            stats,
+            week: first?.week ?? 0,
+            dayRaw: first?.dayRaw ?? '1'
+          })
+        }
+        secs = grouped
+      } else if (props.mode === 'year') {
+        // Group by year
+        const byY = new Map<string, Section[]>()
+        for (const s of secs) {
+          const d = s.dateStart ?? s.dateEnd
+          const key = d ? String(d.getFullYear()) : 'no-date'
+          if (!byY.has(key)) byY.set(key, [])
+          byY.get(key)!.push(s)
+        }
+        const grouped: Section[] = []
+        for (const [key, list] of Array.from(byY.entries()).sort((a, b) => a[0].localeCompare(b[0])) ) {
+          const tasks = list.flatMap(x => x.tasks)
+          const tags = Array.from(new Set(list.flatMap(x => x.tags)))
+          const stats = computeStatsWithSubtasks(tasks)
+          const ds = list.map(x => x.dateStart?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const de = list.map(x => x.dateEnd?.getTime()).filter((n): n is number => Number.isFinite(n as number))
+          const start = ds.length > 0 ? new Date(Math.min(...ds)) : null
+          const end = de.length > 0 ? new Date(Math.max(...de)) : null
+          const first = list
+            .slice()
+            .sort((a, b) => (a.dateStart?.getTime() ?? 0) - (b.dateStart?.getTime() ?? 0))[0]
+          grouped.push({
+            id: `year-${key}`,
+            title: key === 'no-date' ? 'No date' : key,
+            dayLabel: 'All days',
+            dateLabel: props.periodLabel,
+            dateStart: start,
+            dateEnd: end,
+            tags,
+            tasks,
+            stats,
+            week: first?.week ?? 0,
+            dayRaw: first?.dayRaw ?? '1'
+          })
+        }
+        secs = grouped
       }
-      secs = [merged]
     }
     // If filters are active, hide sections that ended up with zero tasks
     const filtersActive = (props.selectedTag && props.selectedTag.length > 0) || (props.searchQuery && props.searchQuery.trim().length > 0)
@@ -490,7 +630,9 @@ function SectionsList(props: {
                   id={`task-${t.key}`}
                   className="tile"
                   data-menu-open={openTaskMenu === t.key ? 'true' : undefined}
+                  data-collapsed={collapsedTasks[t.key] ? 'true' : undefined}
                   style={{ alignItems: 'flex-start', gap: 10, paddingRight: 16, outline: highlightKey === t.key ? '2px solid var(--primary)' : 'none', borderRadius: 8 }}
+                  onClick={(e) => onTileClick(e, t.key)}
                 >
                   <input
                     type="checkbox"
@@ -515,7 +657,14 @@ function SectionsList(props: {
                             className="btn-ghost btn-sm"
                             aria-label="Add subtask"
                             title="Add subtask"
-                            onClick={() => setAddSubFor({ key: t.key })}
+                            onClick={() => {
+                              if (t.isPatternParent) {
+                                // Adding under a pattern creates a new Problem task for this day
+                                props.onOpenAddTaskForDay(sec.week, sec.dayRaw)
+                              } else {
+                                setAddSubFor({ key: t.key })
+                              }
+                            }}
                           >
                             <CornerDownRight size={16} />
                           </button>
@@ -563,7 +712,14 @@ function SectionsList(props: {
                                 <StickyNote size={16} aria-hidden="true" />
                                 <span>{expandedNotes[t.key] ? 'Hide notes' : 'Show notes'}</span>
                               </button>
-                              <button role="menuitem" className="menu-item" onClick={() => { setAddSubFor({ key: t.key }); setOpenTaskMenu(null) }}>
+                              <button role="menuitem" className="menu-item" onClick={() => {
+                                if (t.isPatternParent) {
+                                  props.onOpenAddTaskForDay(sec.week, sec.dayRaw)
+                                } else {
+                                  setAddSubFor({ key: t.key })
+                                }
+                                setOpenTaskMenu(null)
+                              }}>
                                 <CornerDownRight size={16} aria-hidden="true" />
                                 <span>Add subtask</span>
                               </button>
@@ -591,7 +747,7 @@ function SectionsList(props: {
                         </div>
                       </div>
                     </div>
-                    {expandedNotes[t.key] && (
+                    {!collapsedTasks[t.key] && expandedNotes[t.key] && (
                       <div className="column" style={{ gap: 6 }}>
                         <textarea
                           defaultValue={t.notes ?? ''}
@@ -601,14 +757,63 @@ function SectionsList(props: {
                         />
                       </div>
                     )}
-                    <Subtasks
-                      subtasks={t.subtasks ?? []}
-                      onOpenAddSubtask={(opts) => setAddSubFor({ key: t.key, parentId: opts?.parentId })}
-                      onToggle={(id) => props.onToggleSubtask(t.key, id)}
-                      onRemove={(id) => props.onRemoveSubtask(t.key, id)}
-                      onSetNotes={(subId, notes) => props.onSetSubtaskNotes(t.key, subId, notes)}
-                      onRename={(subId, title) => props.onRenameSubtask(t.key, subId, title)}
-                    />
+                    {!collapsedTasks[t.key] && (
+                      <Subtasks
+                        subtasks={t.subtasks ?? []}
+                        onOpenAddSubtask={(opts) => {
+                          if (!t.isPatternParent) {
+                            setAddSubFor({ key: t.key, parentId: opts?.parentId })
+                            return
+                          }
+                          const pid = opts?.parentId
+                          if (!pid) return
+                          const parsed = parseEncodedSubtaskId(pid)
+                          if (!parsed) return
+                          // Add under the appropriate problem task
+                          setAddSubFor({ key: parsed.problemKey, parentId: parsed.subId })
+                        }}
+                        onToggle={(id) => {
+                          if (!t.isPatternParent) {
+                            props.onToggleSubtask(t.key, id)
+                            return
+                          }
+                          const parsed = parseEncodedSubtaskId(id)
+                          if (!parsed) return
+                          if (parsed.subId) props.onToggleSubtask(parsed.problemKey, parsed.subId)
+                          else props.onToggleTask(parsed.problemKey)
+                        }}
+                        onRemove={(id) => {
+                          if (!t.isPatternParent) {
+                            props.onRemoveSubtask(t.key, id)
+                            return
+                          }
+                          const parsed = parseEncodedSubtaskId(id)
+                          if (!parsed) return
+                          if (parsed.subId) props.onRemoveSubtask(parsed.problemKey, parsed.subId)
+                          else props.onRemoveTask(parsed.problemKey)
+                        }}
+                        onSetNotes={(subId, notes) => {
+                          if (!t.isPatternParent) {
+                            props.onSetSubtaskNotes(t.key, subId, notes)
+                            return
+                          }
+                          const parsed = parseEncodedSubtaskId(subId)
+                          if (!parsed) return
+                          if (parsed.subId) props.onSetSubtaskNotes(parsed.problemKey, parsed.subId, notes)
+                          else props.onSaveNotes(parsed.problemKey, notes)
+                        }}
+                        onRename={(subId, title) => {
+                          if (!t.isPatternParent) {
+                            props.onRenameSubtask(t.key, subId, title)
+                            return
+                          }
+                          const parsed = parseEncodedSubtaskId(subId)
+                          if (!parsed) return
+                          if (parsed.subId) props.onRenameSubtask(parsed.problemKey, parsed.subId, title)
+                          else props.onRenameTask(parsed.problemKey, title)
+                        }}
+                      />
+                    )}
                   </div>
                 </li>
               ))}
@@ -903,34 +1108,17 @@ function AddTaskModal(props: { initialWeek: number; initialDay: string; onAdd: (
   )
 }
 
-// Helpers for period labels
-function startOfWeek(date: Date) {
-  const d = new Date(date)
-  const day = (d.getDay() + 6) % 7 // Monday as first day
-  d.setDate(d.getDate() - day)
-  d.setHours(0, 0, 0, 0)
-  return d
-}
-function endOfWeek(date: Date) {
-  const s = startOfWeek(date)
-  const e = new Date(s)
-  e.setDate(s.getDate() + 6)
-  e.setHours(23, 59, 59, 999)
-  return e
-}
-
-function startOfDay(date: Date) { const d = new Date(date); d.setHours(0,0,0,0); return d }
-function endOfDay(date: Date) { const d = new Date(date); d.setHours(23,59,59,999); return d }
-function startOfMonth(date: Date) { const d = new Date(date.getFullYear(), date.getMonth(), 1, 0,0,0,0); return d }
-function endOfMonth(date: Date) { const d = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23,59,59,999); return d }
-function startOfQuarter(date: Date) { const q = Math.floor(date.getMonth() / 3); return new Date(date.getFullYear(), q * 3, 1, 0,0,0,0) }
-function endOfQuarter(date: Date) { const q = Math.floor(date.getMonth() / 3); return new Date(date.getFullYear(), q * 3 + 3, 0, 23,59,59,999) }
-function startOfHalf(date: Date) { const h = date.getMonth() < 6 ? 0 : 6; return new Date(date.getFullYear(), h, 1, 0,0,0,0) }
-function endOfHalf(date: Date) { const h = date.getMonth() < 6 ? 6 : 12; return new Date(date.getFullYear(), h, 0, 23,59,59,999) }
-function startOfYear(date: Date) { return new Date(date.getFullYear(), 0, 1, 0,0,0,0) }
-function endOfYear(date: Date) { return new Date(date.getFullYear(), 11, 31, 23,59,59,999) }
-function rangesOverlap(aStart: Date, aEnd: Date, bStart: Date, bEnd: Date) {
-  return aStart <= bEnd && bStart <= aEnd
+// Encode/decode helpers to route subtask actions of pattern parents to the
+// underlying problem task keys. Format: `k|<problemKey>` for the root problem node,
+// and `k|<problemKey>#<subId>` for nested subtasks under that problem.
+function encodeProblemRootId(problemKey: string): string { return `k|${problemKey}` }
+function encodeProblemSubId(problemKey: string, subId: string): string { return `k|${problemKey}#${subId}` }
+function parseEncodedSubtaskId(id: string): { problemKey: string; subId?: string } | null {
+  if (!id.startsWith('k|')) return null
+  const rest = id.slice(2)
+  const hash = rest.indexOf('#')
+  if (hash === -1) return { problemKey: rest }
+  return { problemKey: rest.slice(0, hash), subId: rest.slice(hash + 1) }
 }
 
 // Build sections from plan
@@ -958,11 +1146,43 @@ function buildSections(categoryId: string, plan: PlanState): Section[] {
       if (day.patterns) {
         for (const p of day.patterns) {
           if (p?.name) tags.add(p.name)
+
+          // Build a synthesized parent task for the pattern, nesting each problem as a subtask.
+          const problemNodes: Subtask[] = []
           for (const pr of p.problems ?? []) {
-            const key = makeTaskKey(categoryId, wk.week, day.day, p.name ?? 'pattern', pr)
-            const meta = tasksState[key] ?? {}
-            tasks.push({ key, title: pr, completed: !!meta.completed, notes: meta.notes, subtasks: meta.subtasks })
+            const problemKey = makeTaskKey(categoryId, wk.week, day.day, p.name ?? 'pattern', pr)
+            const problemMeta = tasksState[problemKey] ?? {}
+
+            function mapChildren(list?: Subtask[]): Subtask[] | undefined {
+              if (!list || list.length === 0) return undefined
+              return list.map(child => ({
+                id: encodeProblemSubId(problemKey, child.id),
+                title: child.title,
+                completed: child.completed,
+                notes: child.notes,
+                children: mapChildren(child.children)
+              }))
+            }
+
+            problemNodes.push({
+              id: encodeProblemRootId(problemKey),
+              title: problemMeta.titleOverride ?? pr,
+              completed: !!problemMeta.completed,
+              notes: problemMeta.notes,
+              children: mapChildren(problemMeta.subtasks)
+            })
           }
+
+          const parentKey = makeTaskKey(categoryId, wk.week, day.day, 'pattern', p?.name ?? 'Pattern')
+          const parentMeta = tasksState[parentKey] ?? {}
+          tasks.push({
+            key: parentKey,
+            title: p?.name ?? 'Pattern',
+            completed: !!parentMeta.completed,
+            notes: parentMeta.notes,
+            subtasks: problemNodes,
+            isPatternParent: true
+          })
         }
       }
       if (day.activities) {
